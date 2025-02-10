@@ -5,8 +5,14 @@ from sys import exit
 
 
 def main() -> None:
+    distance_units = ['km', 'mi', 'nautical miles']
     while True:
         try:
+            distance_unit = input('Enter a unit of distance: ')
+
+            if distance_unit not in distance_units:
+                print('Invalid units...')
+
             first_city_country: str = input(
                 'Enter the first city and its country: ')
 
@@ -16,6 +22,10 @@ def main() -> None:
                 'Enter the second city and its country: ')
 
             second_city, second_country = second_city_country.split(', ')
+
+            if first_city == second_city and first_country == second_country:
+                print('Same city...')
+                continue
 
             src_url: str = f'https://nominatim.openstreetmap.org/search?city={first_city}&country={first_country}&format=json'
 
@@ -33,12 +43,18 @@ def main() -> None:
             dest_data = dest_response.json()
             dest_coords = (
                 float(dest_data[0]["lat"]), float(dest_data[0]["lon"]))
+            if distance_unit == distance_units[0]:
+                distance = hs.haversine(
+                    src_coords, dest_coords, unit=Unit.KILOMETERS)
+            elif distance_unit == distance_units[1]:
+                distance = hs.haversine(
+                    src_coords, dest_coords, unit=Unit.MILES)
+            else:
+                distance = hs.haversine(
+                    src_coords, dest_coords, unit=Unit.NAUTICAL_MILES)
 
-            distance = hs.haversine(
-                src_coords, dest_coords, unit=Unit.KILOMETERS)
             print(
-                f'The distance between {first_city} and {second_city} is {distance:.2f} km.')
-
+                f'The distance between {first_city_country} and {second_city_country} is {distance:.2f} {distance_unit}.')
         except (IndexError, ValueError):
             print('Invalid input...')
             continue
