@@ -5,7 +5,7 @@ from sys import exit
 
 
 def main() -> None:
-    distance_units = ['km', 'mi', 'nautical miles']
+    distance_units = ['km', 'mi', 'mi.', 'M', 'NM', 'nmi']
     while True:
         try:
             distance_unit = input('Enter a unit of distance: ')
@@ -46,7 +46,7 @@ def main() -> None:
             if distance_unit == distance_units[0]:
                 distance = hs.haversine(
                     src_coords, dest_coords, unit=Unit.KILOMETERS)
-            elif distance_unit == distance_units[1]:
+            elif distance_unit == distance_units[1] or distance_unit == distance_units[2]:
                 distance = hs.haversine(
                     src_coords, dest_coords, unit=Unit.MILES)
             else:
