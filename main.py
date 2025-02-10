@@ -5,10 +5,10 @@ from sys import exit
 
 
 def main() -> None:
-    distance_units = ['km', 'mi', 'mi.', 'M', 'NM', 'nmi']
+    distance_units: list[str] = ['km', 'mi', 'mi.', 'M', 'NM', 'nmi']
     while True:
         try:
-            distance_unit = input('Enter a unit of distance: ')
+            distance_unit: str = input('Enter a unit of distance: ')
 
             if distance_unit not in distance_units:
                 print('Invalid units...')
@@ -36,21 +36,21 @@ def main() -> None:
             src_coords: tuple[float, float] = (
                 float(src_data[0]["lat"]), float(src_data[0]["lon"]))
 
-            dest_url = f'https://nominatim.openstreetmap.org/search?city={second_city}&country={second_country}&format=json'
+            dest_url: str = f'https://nominatim.openstreetmap.org/search?city={second_city}&country={second_country}&format=json'
             dest_response = requests.get(
                 dest_url, headers={'User-Agent': 'distance-between-two-cities'})
 
             dest_data = dest_response.json()
-            dest_coords = (
+            dest_coords: tuple[float, float] = (
                 float(dest_data[0]["lat"]), float(dest_data[0]["lon"]))
             if distance_unit == distance_units[0]:
-                distance = hs.haversine(
+                distance: float = hs.haversine(
                     src_coords, dest_coords, unit=Unit.KILOMETERS)
             elif distance_unit == distance_units[1] or distance_unit == distance_units[2]:
-                distance = hs.haversine(
+                distance: float = hs.haversine(
                     src_coords, dest_coords, unit=Unit.MILES)
             else:
-                distance = hs.haversine(
+                distance: float = hs.haversine(
                     src_coords, dest_coords, unit=Unit.NAUTICAL_MILES)
 
             print(
