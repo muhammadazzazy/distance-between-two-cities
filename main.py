@@ -39,11 +39,7 @@ def main() -> None:
             print(
                 f'The distance between {first_city} and {second_city} is {distance:.2f} km.')
 
-        except IndexError:
-            print('Invalid input...')
-            continue
-
-        except ValueError:
+        except (IndexError, ValueError):
             print('Invalid input...')
             continue
 
