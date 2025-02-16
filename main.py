@@ -17,11 +17,11 @@ def main() -> None:
                 print(exit_message)
                 exit()
 
-            distance_unit: str = user_input
-
-            if distance_unit not in distance_units:
+            if user_input not in distance_units:
                 print('Please enter valid units...')
                 continue
+            else:
+                distance_unit: str = user_input
 
             first_city_country: str = input(
                 'Enter the first city and its country: ')
@@ -34,7 +34,7 @@ def main() -> None:
             second_city, second_country = second_city_country.split(', ')
 
             if first_city == second_city and first_country == second_country:
-                print('Same city...')
+                print('Please enter different cities...')
                 continue
 
             src_url: str = f'https://nominatim.openstreetmap.org/search?city={first_city}&country={first_country}&format=json'
