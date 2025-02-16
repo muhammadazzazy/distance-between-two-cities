@@ -5,12 +5,20 @@ from sys import exit
 
 
 def main() -> None:
+    greeting: str = """Welcome to The Distance-Between-Two-Cities Calculator! 🌎 🌍 🌏
+Valid distance units include the following:
+km
+mi mi.
+M NM NMI
+"""
+
+    print(greeting)
+    
     distance_units: list[str] = ['km', 'mi', 'mi.', 'M', 'NM', 'nmi']
-    print('Welcome to The Distance-Between-Two-Cities Calculator! 🌎🌍🌏')
     exit_message: str = 'Exiting program...'
+    
     while True:
         try:
-            # distance_unit: str = input('Enter a unit of distance: ')
             user_input: str = input('Enter a unit of distance: ')
 
             if user_input == 'exit':
