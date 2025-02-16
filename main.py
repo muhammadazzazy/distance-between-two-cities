@@ -6,12 +6,22 @@ from sys import exit
 
 def main() -> None:
     distance_units: list[str] = ['km', 'mi', 'mi.', 'M', 'NM', 'nmi']
+    print('Welcome to The Distance-Between-Two-Cities Calculator! 🌎🌍🌏')
+    exit_message: str = 'Exiting program...'
     while True:
         try:
-            distance_unit: str = input('Enter a unit of distance: ')
+            # distance_unit: str = input('Enter a unit of distance: ')
+            user_input: str = input('Enter a unit of distance: ')
+
+            if user_input == 'exit':
+                print(exit_message)
+                exit()
+
+            distance_unit: str = user_input
 
             if distance_unit not in distance_units:
-                print('Invalid units...')
+                print('Please enter valid units...')
+                continue
 
             first_city_country: str = input(
                 'Enter the first city and its country: ')
@@ -37,12 +47,14 @@ def main() -> None:
                 float(src_data[0]["lat"]), float(src_data[0]["lon"]))
 
             dest_url: str = f'https://nominatim.openstreetmap.org/search?city={second_city}&country={second_country}&format=json'
-            dest_response = requests.get(
+            dest_response: requests.models.Response = requests.get(
                 dest_url, headers={'User-Agent': 'distance-between-two-cities'})
 
-            dest_data = dest_response.json()
+            dest_data: list[str] = dest_response.json()
+
             dest_coords: tuple[float, float] = (
                 float(dest_data[0]["lat"]), float(dest_data[0]["lon"]))
+
             if distance_unit == distance_units[0]:
                 distance: float = hs.haversine(
                     src_coords, dest_coords, unit=Unit.KILOMETERS)
@@ -55,12 +67,13 @@ def main() -> None:
 
             print(
                 f'The distance between {first_city_country} and {second_city_country} is {distance:.2f} {distance_unit}.')
+
         except (IndexError, ValueError):
-            print('Invalid input...')
+            print('Please enter some valid input...')
             continue
 
         except KeyboardInterrupt:
-            print('Exiting...')
+            print(exit_message)
             exit()
 
 
