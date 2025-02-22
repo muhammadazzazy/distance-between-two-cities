@@ -19,4 +19,4 @@ To start the program, run the following command:
 ```bash
 python3 main.py
 ```
-The project idea was obtained from [karan/Projects](https://github.com/karan/Projects#numbers).
+The project idea was obtained from [karan/Projects#numbers](https://github.com/karan/Projects#numbers).
