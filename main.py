@@ -74,7 +74,7 @@ M NM NMI
                     src_coords, dest_coords, unit=Unit.NAUTICAL_MILES)
 
             print(
-                f'The distance between {first_city_country} and {second_city_country} is {distance:.2f} {distance_unit}.')
+                f'The distance between {first_city_country} and {second_city_country} is {distance:,.2f} {distance_unit}.')
 
         except (IndexError, ValueError):
             print('Please enter some valid input...')
